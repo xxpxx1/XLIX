@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">XLIX</string>
+    <string name="hello_message">Hello XLIX!</string>
+    <string name="button_toggle">Toggle WhatsApp</string>
 </resources>

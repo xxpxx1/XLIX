@@ -1,16 +1,13 @@
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+// Top-level build file
+
+buildscript {
     repositories {
         google()
         mavenCentral()
     }
+    dependencies {
+        classpath "com.android.tools.build:gradle:8.5.0" // pastikan versinya cocok dengan Android Gradle Plugin
+    }
 }
-rootProject.name = "XLIX"
-include(":app")
+
+// ❌ Bagian allprojects dihapus, karena sudah diganti di settings.gradle

@@ -3,8 +3,8 @@ package com.xlix;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.xlix.ui.home.HomeFragment;
 import com.xlix.ui.control.ControlFragment;
 import com.xlix.ui.vault.VaultFragment;
@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+
         bottomNavigation.setOnItemSelectedListener(item -> {
             Fragment selected = null;
             int id = item.getItemId();
@@ -37,9 +38,11 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container, selected)
                         .commit();
             }
+
             return true;
         });
 
+        // default fragment saat pertama kali dibuka
         if (savedInstanceState == null) {
             bottomNavigation.setSelectedItemId(R.id.navigation_home);
         }

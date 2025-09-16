@@ -1,4 +1,4 @@
-package com.xlix.ui.control;
+package com.xlix.ui.settings;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment;
 
 import com.xlix.R;
 
-public class ControlFragment extends Fragment {
+public class SettingsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_control, container, false);
+        return inflater.inflate(R.layout.fragment_settings, container, false);
     }
 }

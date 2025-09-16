@@ -1,6 +1,8 @@
 package com.xlix;
 
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
@@ -17,20 +19,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
-        bottomNavigation.setOnItemSelectedListener(item -> {
+        // default fragment = Home
+        if (savedInstanceState == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new HomeFragment())
+                    .commit();
+        }
+
+        bottomNav.setOnItemSelectedListener(item -> {
             Fragment selected = null;
-            int id = item.getItemId();
 
-            if (id == R.id.navigation_home) {
-                selected = new HomeFragment();
-            } else if (id == R.id.navigation_control) {
-                selected = new ControlFragment();
-            } else if (id == R.id.navigation_vault) {
-                selected = new VaultFragment();
-            } else if (id == R.id.navigation_settings) {
-                selected = new SettingsFragment();
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    selected = new HomeFragment();
+                    break;
+                case R.id.navigation_control:
+                    selected = new ControlFragment();
+                    break;
+                case R.id.navigation_vault:
+                    selected = new VaultFragment();
+                    break;
+                case R.id.navigation_settings:
+                    selected = new SettingsFragment();
+                    break;
             }
 
             if (selected != null) {
@@ -38,13 +51,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.fragment_container, selected)
                         .commit();
             }
-
             return true;
         });
-
-        // default fragment saat pertama kali dibuka
-        if (savedInstanceState == null) {
-            bottomNavigation.setSelectedItemId(R.id.navigation_home);
-        }
     }
 }

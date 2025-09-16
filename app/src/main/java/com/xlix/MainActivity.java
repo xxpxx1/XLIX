@@ -1,48 +1,47 @@
 package com.xlix;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.xlix.ui.home.HomeFragment;
+import com.xlix.ui.control.ControlFragment;
+import com.xlix.ui.vault.VaultFragment;
+import com.xlix.ui.settings.SettingsFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerViewApps;
-    private AppAdapter appAdapter;
-    private List<AppModel> appList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerViewApps = findViewById(R.id.recyclerViewApps);
-        recyclerViewApps.setLayoutManager(new LinearLayoutManager(this));
+        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation.setOnItemSelectedListener(item -> {
+            Fragment selected = null;
+            int id = item.getItemId();
 
-        appList = getInstalledApps();
-        appAdapter = new AppAdapter(this, appList);
-        recyclerViewApps.setAdapter(appAdapter);
-    }
-
-    private List<AppModel> getInstalledApps() {
-        List<AppModel> apps = new ArrayList<>();
-        PackageManager pm = getPackageManager();
-        List<ApplicationInfo> packages = pm.getInstalledApplications(0);
-
-        for (ApplicationInfo packageInfo : packages) {
-            // Hanya ambil user-installed apps
-            if ((packageInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
-                String appName = pm.getApplicationLabel(packageInfo).toString();
-                String packageName = packageInfo.packageName;
-                apps.add(new AppModel(appName, packageName, pm.getApplicationIcon(packageInfo)));
+            if (id == R.id.navigation_home) {
+                selected = new HomeFragment();
+            } else if (id == R.id.navigation_control) {
+                selected = new ControlFragment();
+            } else if (id == R.id.navigation_vault) {
+                selected = new VaultFragment();
+            } else if (id == R.id.navigation_settings) {
+                selected = new SettingsFragment();
             }
+
+            if (selected != null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, selected)
+                        .commit();
+            }
+            return true;
+        });
+
+        if (savedInstanceState == null) {
+            bottomNavigation.setSelectedItemId(R.id.navigation_home);
         }
-        return apps;
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:title="Home"
+        android:icon="@android:drawable/ic_menu_view"/>
+
+    <item
+        android:id="@+id/navigation_control"
+        android:title="Control"
+        android:icon="@android:drawable/ic_media_play"/>
+
+    <item
+        android:id="@+id/navigation_vault"
+        android:title="Vault"
+        android:icon="@android:drawable/ic_lock_lock"/>
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_manage"/>
+</menu>
